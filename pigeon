@@ -1,0 +1,36 @@
+int fsrPin = A0;
+int fsrValue;
+int threshold = 100;
+//threshold is where to find a legit pulse 
+int frequency = 0;
+int speakerPin = 10;
+
+void setup() {
+  Serial.begin(9600);
+
+}
+
+void loop() {
+  fsrValue = analogRead(fsrPin);
+
+  if (fsrValue >= threshold) {
+
+    if (fsrValue >= 100 && fsrValue < 260) {
+      frequency = 523;
+      //note C5
+    } else if (fsrValue >= 260 && fsrValue < 320) {
+      frequency = 659;
+      //note E5
+    } else if (fsrValue >= 320 && fsrValue < 1023) {
+      frequency = 784;
+      //note G5
+    }
+
+    tone(frequency, speakerPin);
+
+  } else {
+  }
+
+  Serial.println(fsrValue);
+
+}
